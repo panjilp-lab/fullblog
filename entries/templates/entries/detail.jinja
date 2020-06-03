@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+  {% block title %}{{ entry.title }}{% endblock %}
+<!---{% block content_title %}{% endblock %}!--->
+
+{% block body %}
+<div class="cd-content-wrapper">
+  <div class="text-component text-center">
+    <li><h4>Tags</h4></li>
+    <p>{{ entry.title }}</p>
+    <p>{{ entry.body }}</p>
+
+    {% for tag in entry.tags %}
+
+      <a href="{{ url_for('entries.tag_detail', slug=tag.slug) }}">{{ tag.name }}</a>
+
+    {% endfor %}
+
+
+  <p>Published {{ entry.created_timestamp.strftime('%m/%d/%Y') }}</p>
+</div></div>
+{% endblock %}
+
+<!---{% block content %}
+
+  {{ entry.body }}
+
+{% endblock %}!--->

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block body %}
+<div class="cd-content-wrapper">
+  <div class="text-component text-center">
+    <p>Responsive Sidebar Navigation</p>
+    <p>Hallo flask is here</p>
+    <p>your name is {{ name|default('<unknow>'), True }}</p>
+    {% if number %}
+    <p>your number is {{ number|int }}</p>
+    <ul>
+      {% for i in range(number|int) %}
+      {% if i is divisibleby 2 %}
+      <li>{{ i }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>no number specified</p>
+    {% endif %}
+    <a href="{{ url_for('entries.index') }}">Blog</a></li>
+  </div>
+</div> <!-- .content-wrapper -->
+
+
+{% endblock %}

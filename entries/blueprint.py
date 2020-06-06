@@ -5,6 +5,24 @@ from entries.forms import EntryForm
 from app import db
 
 entries = Blueprint('entries', __name__, template_folder='templates')
+
+def entry_list(template, query, **context):
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT)
+    query = query.filter(Entry.status.in_(valid_statuses))
+    if request.args.get('q'):
+        search = request.args['q']
+        query = query.filter(
+            (Entry.body.contains(search)) |
+            (Entry.title.contains(search)))
+    return object_list(template, query, **context)
+
+def get_entry_or_404(slug):
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) (Entry.query
+            .filter(
+                (Entry.slug == slug) &
+                (Entry.status.in_(valid_statuses)))
+            .first_or_404())
+
 @entries.route('/')
 def index():
     entries = Entry.query.order_by(Entry.created_timestamp.desc())
